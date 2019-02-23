@@ -143,12 +143,12 @@ void main()
     //int c[m+1][n+1], b[m+1][n+1];
     //memset(c, 0, sizeof(int) * (m+1) * (n+1));
     //memset(b, 0, sizeof(int) * (m+1) * (n+1));
-    PrintLCSeqTable(m, n);
+    //PrintLCSeqTable(m, n);
     printf("\nLCS Len - %d\n", LCSeqLen(X, Y, m, n));
-
+    printf("LCS Seq - ");
     PrintLCSeq(X, m, n);
-    printf("\n");
-    PrintLCSeqTable(m, n);
-    printf("\n");
-    PrintLCSeqCostTable(m, n);
+    //printf("\n");
+    //PrintLCSeqTable(m, n);
+    //printf("\n");
+    //PrintLCSeqCostTable(m, n);
 }
