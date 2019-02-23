@@ -147,7 +147,7 @@ void main()
     printf("\nLCS Len - %d\n", LCSeqLen(X, Y, m, n));
     printf("LCS Seq - ");
     PrintLCSeq(X, m, n);
-    //printf("\n");
+    printf("\n");
     //PrintLCSeqTable(m, n);
     //printf("\n");
     //PrintLCSeqCostTable(m, n);
