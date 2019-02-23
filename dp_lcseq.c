@@ -33,7 +33,7 @@ int LCSeqLen(char X[], char Y[], size_t m, size_t n)
             {
                 c[i][j] = c[i - 1][j - 1] + 1;
                 b[i][j] = DI;
-                printf("%c %c, %ld %ld\n", X[i - 1], Y[j - 1], i, j);
+                //printf("%c %c, %ld %ld\n", X[i - 1], Y[j - 1], i, j);
             }
             else
             {
