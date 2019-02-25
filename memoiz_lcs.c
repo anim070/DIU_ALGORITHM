@@ -7,6 +7,8 @@
 * Y = CACCCCTAAGGTACCTTTGGTTC
 * LCS LENGTH 13
 */
+/*Memoization Table*/
+int static cache[STR_LEN][STR_LEN];
 /* returns maximum of x and y*/
 int getMax(int x,int y){
     return (x > y) ? x : y;
@@ -17,13 +19,17 @@ int LCSLen(char *X,char *Y,int m,int n){
     if(m == 0 || n == 0){
         return 0;
     }
-    if(X[m-1] == Y[n-1]){
-        return 1 + LCSLen(X,Y,m-1,n-1);
-    }else{
-        return getMax(LCSLen(X,Y,m,n-1),LCSLen(X,Y,m-1,n));
+    if(cache[m][n] != -1){
+        return cache[m][n];
     }
-
+    if(X[m-1] == Y[n-1]){
+        cache[m][n] = 1 + LCSLen(X,Y,m-1,n-1);
+    }else{
+        cache[m][n] = getMax(LCSLen(X,Y,m,n-1),LCSLen(X,Y,m-1,n));
+    }
+    return cache[m][n];
 }
+
 void main()
 {
     char X[STR_LEN], Y[STR_LEN];
@@ -34,5 +40,6 @@ void main()
     scanf("%[^\n]%*c", Y);
     m = strlen(X);
     n = strlen(Y);
+    memset(cache, -1, sizeof(int) * (STR_LEN) * (STR_LEN));
     printf("\nLCS Length - %d\n",LCSLen(X,Y,m,n));
 }
