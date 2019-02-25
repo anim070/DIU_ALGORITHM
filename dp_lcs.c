@@ -6,7 +6,7 @@
 #define DI 300 //DIAGONAL ARROW
 int static c[STR_LEN + 1][STR_LEN + 1];
 int static b[STR_LEN + 1][STR_LEN + 1];
-int LCSeqLen(char X[], char Y[], size_t m, size_t n)
+int LCSLen(char *X, char *Y, size_t m, size_t n)
 {
     //printf("%s, Length %ld\n%s, Length %ld\n",X,m,Y,n);
     /*for (int iter = m; iter >= 1; iter--)
@@ -144,7 +144,7 @@ void main()
     //memset(c, 0, sizeof(int) * (m+1) * (n+1));
     //memset(b, 0, sizeof(int) * (m+1) * (n+1));
     //PrintLCSeqTable(m, n);
-    printf("\nLCS Len - %d\n", LCSeqLen(X, Y, m, n));
+    printf("\nLCS Len - %d\n", LCSLen(X, Y, m, n));
     printf("LCS Seq - ");
     PrintLCSeq(X, m, n);
     printf("\n");
