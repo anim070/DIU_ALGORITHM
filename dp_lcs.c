@@ -64,65 +64,8 @@ void PrintLCSeq(char X[], size_t i, size_t j)
         PrintLCSeq(X, i, j - 1);
     }
 }
-void PrintLCSeqTable(size_t m, size_t n)
-{
-    for (size_t i = 0; i <= m; i++)
-    {
-        for (size_t j = 0; j <= n; j++)
-        {
-            if (b[i][j] == UP)
-            {
-                printf(" U ");
-            }
-            else if (b[i][j] == LF)
-            {
-                /* code */
-                printf(" L ");
-            }
-            else if (b[i][j] == DI)
-            {
-                /* code */
-                printf(" D ");
-            }
-            else
-            {
-                /* code */
-                printf(" %d ", b[i][j]);
-            }
-        }
-        printf("\n");
-    }
-}
-void PrintLCSeqCostTable(size_t m, size_t n)
-{
-    for (size_t i = 0; i <= m; i++)
-    {
-        for (size_t j = 0; j <= n; j++)
-        {
-            if (c[i][j] == UP)
-            {
-                printf(" U ");
-            }
-            else if (c[i][j] == LF)
-            {
-                /* code */
-                printf(" L ");
-            }
-            else if (c[i][j] == DI)
-            {
-                /* code */
-                printf(" D ");
-            }
-            else
-            {
-                /* code */
-                printf(" %d ", c[i][j]);
-            }
-        }
-        printf("\n");
-    }
-}
-void printLCSTable(char *X, char *Y, int m, int n)
+
+void printLCSTables(char *X, char *Y, int m, int n)
 {
     for (int i = -1; i <= m; i++)
     {
@@ -238,7 +181,7 @@ void main()
     printf("LCS Seq - ");
     PrintLCSeq(X, m, n);
     printf("\n");
-    printLCSTable(X, Y, m, n);
+    printLCSTables(X, Y, m, n);
     //PrintLCSeqTable(m, n);
     printf("\n");
     //PrintLCSeqCostTable(m, n);
