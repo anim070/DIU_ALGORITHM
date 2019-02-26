@@ -8,15 +8,7 @@ int static c[STR_LEN + 1][STR_LEN + 1];
 int static b[STR_LEN + 1][STR_LEN + 1];
 int LCSLen(char *X, char *Y, size_t m, size_t n)
 {
-    //printf("%s, Length %ld\n%s, Length %ld\n",X,m,Y,n);
-    /*for (int iter = m; iter >= 1; iter--)
-    {
-        X[iter] = X[iter - 1];
-    }
-    for (int iter = n; iter >= 1; iter--)
-    {
-        Y[iter] = Y[iter - 1];
-    }*/
+
     for (int a = 0; a <= m; a++)
     {
         c[a][0] = 0;
@@ -61,7 +53,7 @@ void PrintLCSeq(char X[], size_t i, size_t j)
     if (b[i][j] == DI)
     {
         PrintLCSeq(X, i - 1, j - 1);
-        printf("%c", X[i-1]);
+        printf("%c", X[i - 1]);
     }
     else if (b[i][j] == UP)
     {
@@ -130,6 +122,104 @@ void PrintLCSeqCostTable(size_t m, size_t n)
         printf("\n");
     }
 }
+void printLCSTable(char *X, char *Y, int m, int n)
+{
+    for (int i = -1; i <= m; i++)
+    {
+        for (int j = -1; j <= n; j++)
+        {
+            if (i == -1 || j == -1)
+            {
+                if(i == -1){
+                    if(j == -1){
+                        printf("   ");
+                    }else if(j == 0){
+                        printf(" * ");
+                    }else{
+                        printf(" %c ",Y[j-1]);
+                    }
+                }else{
+                    if(j == -1 && i == 0){
+                        printf(" * ");
+                    }else{
+                        printf(" %c ",X[i-1]);
+                    }
+                }
+            }
+            else
+            {
+                if (c[i][j] == UP)
+                {
+                    printf(" U ");
+                }
+                else if (c[i][j] == LF)
+                {
+                    /* code */
+                    printf(" L ");
+                }
+                else if (c[i][j] == DI)
+                {
+                    /* code */
+                    printf(" D ");
+                }
+                else
+                {
+                    /* code */
+                    printf(" %d ", c[i][j]);
+                }
+            }
+        }
+        printf("\n");
+    }
+    printf("---------------------------------------\n");
+    for (int i = -1; i <= m; i++)
+    {
+        for (int j = -1; j <= n; j++)
+        {
+            if (i == -1 || j == -1)
+            {
+                if(i == -1){
+                    if(j == -1){
+                        printf("   ");
+                    }else if(j == 0){
+                        printf(" * ");
+                    }else{
+                        printf(" %c ",Y[j-1]);
+                    }
+                }else{
+                    if(j == -1 && i == 0){
+                        printf(" * ");
+                    }else{
+                        printf(" %c ",X[i-1]);
+                    }
+                }
+            }
+            else
+            {
+                if (b[i][j] == UP)
+                {
+                    printf(" U ");
+                }
+                else if (b[i][j] == LF)
+                {
+                    /* code */
+                    printf(" L ");
+                }
+                else if (b[i][j] == DI)
+                {
+                    /* code */
+                    printf(" D ");
+                }
+                else
+                {
+                    /* code */
+                    printf(" %d ", b[i][j]);
+                }
+            }
+        }
+        printf("\n");
+    }
+}
 void main()
 {
     char X[STR_LEN], Y[STR_LEN];
@@ -148,7 +238,8 @@ void main()
     printf("LCS Seq - ");
     PrintLCSeq(X, m, n);
     printf("\n");
+    printLCSTable(X, Y, m, n);
     //PrintLCSeqTable(m, n);
-    //printf("\n");
+    printf("\n");
     //PrintLCSeqCostTable(m, n);
 }
