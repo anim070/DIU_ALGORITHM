@@ -15,9 +15,9 @@ int knapsack(int maxCapacity,int *weight,int *price,int itemCount){
     return (x > y) ? x : y;
 }
 void main(){
-    int weight[] = {2,3,4,5};
-    int price[] = {3,4,5,6};
-    int knapsackCapacity = 8;
+    int weight[] = {2,3,7,4};
+    int price[] = {1,3,5,5};
+    int knapsackCapacity = 7;
     int itemCount = sizeof(weight)/sizeof(weight[0]);
-    printf("Max Profit - %d",knapsack(knapsackCapacity,weight,price,itemCount));
+    printf("Max Profit - %d\n",knapsack(knapsackCapacity,weight,price,itemCount));
 }
