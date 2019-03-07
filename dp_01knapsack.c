@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <string.h>
+
 int profit[50][50];
 int getMax(int x, int y)
 {
