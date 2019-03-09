@@ -64,7 +64,50 @@ void PrintLCSeq(char X[], size_t i, size_t j)
         PrintLCSeq(X, i, j - 1);
     }
 }
-
+void printLCSString(char *X, int m, int n)
+{
+    int i = m;
+    int j = n;
+    int LCS = c[i][j];
+    int stringLength = m + n + 1;
+    char stackArray[stringLength];
+    stackArray[stringLength - 1] = '\0';
+    int top = stringLength - 2;
+    while (i > 0 || j > 0)
+    {
+        if (c[i - 1][j - 1] == LCS && c[i - 1][j] == LCS && c[i][j - 1] == LCS)
+        {
+            //Go Diagonal
+            i--;
+            j--;
+        }
+        else if (c[i - 1][j - 1] < LCS && c[i - 1][j] < LCS && c[i][j - 1] < LCS)
+        {
+            //Found the boundary of LCS
+            stackArray[top] = X[i - 1];
+            top--;
+            LCS = c[i - 1][j - 1];
+            i--;
+            j--;
+        }
+        else
+        {
+            if (c[i - 1][j] == LCS)
+            {
+                i--;
+            }
+            else
+            {
+                j--;
+            }
+        }
+    }
+    top = top + 1; 
+    while(top < stringLength-1){
+        printf("%c",stackArray[top]);
+        top++;
+    }
+}
 void printLCSTables(char *X, char *Y, int m, int n)
 {
     for (int i = -1; i <= m; i++)
@@ -73,19 +116,30 @@ void printLCSTables(char *X, char *Y, int m, int n)
         {
             if (i == -1 || j == -1)
             {
-                if(i == -1){
-                    if(j == -1){
+                if (i == -1)
+                {
+                    if (j == -1)
+                    {
                         printf("   ");
-                    }else if(j == 0){
-                        printf(" * ");
-                    }else{
-                        printf(" %c ",Y[j-1]);
                     }
-                }else{
-                    if(j == -1 && i == 0){
+                    else if (j == 0)
+                    {
                         printf(" * ");
-                    }else{
-                        printf(" %c ",X[i-1]);
+                    }
+                    else
+                    {
+                        printf(" %c ", Y[j - 1]);
+                    }
+                }
+                else
+                {
+                    if (j == -1 && i == 0)
+                    {
+                        printf(" * ");
+                    }
+                    else
+                    {
+                        printf(" %c ", X[i - 1]);
                     }
                 }
             }
@@ -121,19 +175,30 @@ void printLCSTables(char *X, char *Y, int m, int n)
         {
             if (i == -1 || j == -1)
             {
-                if(i == -1){
-                    if(j == -1){
+                if (i == -1)
+                {
+                    if (j == -1)
+                    {
                         printf("   ");
-                    }else if(j == 0){
-                        printf(" * ");
-                    }else{
-                        printf(" %c ",Y[j-1]);
                     }
-                }else{
-                    if(j == -1 && i == 0){
+                    else if (j == 0)
+                    {
                         printf(" * ");
-                    }else{
-                        printf(" %c ",X[i-1]);
+                    }
+                    else
+                    {
+                        printf(" %c ", Y[j - 1]);
+                    }
+                }
+                else
+                {
+                    if (j == -1 && i == 0)
+                    {
+                        printf(" * ");
+                    }
+                    else
+                    {
+                        printf(" %c ", X[i - 1]);
                     }
                 }
             }
@@ -185,4 +250,5 @@ void main()
     //PrintLCSeqTable(m, n);
     printf("\n");
     //PrintLCSeqCostTable(m, n);
+    printLCSString(X,m,n);
 }
