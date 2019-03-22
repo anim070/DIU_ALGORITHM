@@ -114,9 +114,9 @@ void printSelectedItems(int *weight, int itemCount, int maxCapacity)
 void main()
 {
     printf("Scenario 1\nWeight = {6,3,5,7,10}\nPrice = {30,10,5,3,70}\nKnapsack Capacity = 7");
-    int weight[] = {6, 3, 5, 7, 10};
-    int price[] = {30, 10, 5, 3, 70};
-    int knapsackCapacity = 7;
+    int weight[] = {10, 20, 30, 40};
+    int price[] = {40, 30, 20, 10};
+    int knapsackCapacity = 50;
     int itemCount = sizeof(weight) / sizeof(weight[0]);
     memset(profit, 0, sizeof(int) * 50 * 50);
     printf("\nMax Profit - %d\n", knapsack(knapsackCapacity, weight, price, itemCount));
