@@ -15,9 +15,9 @@ int main(void)
     printf("DFS on Directed Graph\n");
     //Undirected Graph
     A[4][4] = ((0, 1, 0, 0),
-               (0, 0, 1, 1),
-               (0, 0, 0, 1),
-               (0, 0, 0, 0));
+               (1, 0, 1, 1),
+               (0, 1, 0, 1),
+               (0, 1, 1, 0));
     V[4] = (0, 0, 0, 0);
     DFS(0);
 }
