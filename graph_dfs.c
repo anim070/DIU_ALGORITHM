@@ -4,6 +4,40 @@
 int VERTEX_COUNT = 0;
 int *VISITED;
 void printAdjacencyMatrix(int *adjMatPtr, int vertexCount);
+void printAdjacencyList(int *adjMatPtr, int vertexCount);
+void DFS(int *adjMatPtr, int vertexCount, int *visitedArrPtr, int stratingVertex);
+int *getAdjMatFromFile(char *fileName);
+
+void main(void)
+{
+    int vc;
+    int ei;
+    int flag = 1;
+    char fileName[40];
+
+    int *adjMat;
+    printf("Enter Adjacency Matrix FileName : ");
+    scanf("%s", fileName);
+    adjMat = getAdjMatFromFile(fileName);
+    if (adjMat != NULL)
+    {
+        printf("Number of Vertices : %d\n", VERTEX_COUNT);
+        printAdjacencyMatrix(adjMat, VERTEX_COUNT);
+        printf("Adjacency List\n");
+        printAdjacencyList(adjMat,VERTEX_COUNT);
+        int VISITED[VERTEX_COUNT];
+        memset(VISITED, 0, sizeof(int) * VERTEX_COUNT);
+        int stratingVertex = 0;
+        printf("\nEnter Starting Vertex (Between 0 to %d):", VERTEX_COUNT - 1);
+        scanf("%d", &stratingVertex);
+        printf("\nDFS path of Graph from %d\n", stratingVertex);
+        DFS(adjMat, VERTEX_COUNT, VISITED, stratingVertex);
+    }
+    else
+    {
+        printf("File Error\n");
+    }
+}
 void DFS(int *adjMatPtr, int vertexCount, int *visitedArrPtr, int stratingVertex)
 {
     int j;
@@ -109,31 +143,21 @@ void printAdjacencyMatrix(int *adjMatPtr, int vertexCount)
     }
     printf("\n");
 }
-void main(void)
+void printAdjacencyList(int *adjMatPtr, int vertexCount)
 {
-    int vc;
-    int ei;
-    int flag = 1;
-    char fileName[40];
-
-    int *adjMat;
-    printf("Enter Adjacency Matrix FileName : ");
-    scanf("%s", fileName);
-    adjMat = getAdjMatFromFile(fileName);
-    if (adjMat != NULL)
+    for (short i = 0; i < vertexCount; i++)
     {
-        printf("Number of Vertices : %d\n", VERTEX_COUNT);
-        printAdjacencyMatrix(adjMat, VERTEX_COUNT);
-        int VISITED[VERTEX_COUNT];
-        memset(VISITED, 0, sizeof(int) * VERTEX_COUNT);
-        int stratingVertex = 0;
-        printf("\nEnter Starting Vertex (Between 0 to %d):", VERTEX_COUNT - 1);
-        scanf("%d", &stratingVertex);
-        printf("\nDFS path of Graph from %d\n", stratingVertex);
-        DFS(adjMat, VERTEX_COUNT, VISITED, stratingVertex);
+        printf("%d-->", i);
+        for (short j = 0; j < vertexCount; j++)
+        {
+            if (*(adjMatPtr + i * vertexCount + j) == 1)
+            {
+                printf("| %d |", j);
+                if (j < vertexCount - 1)
+                    printf("-->");
+            }
+        }
+        printf("\n");
     }
-    else
-    {
-        printf("File Error\n");
-    }
+    printf("\n");
 }
