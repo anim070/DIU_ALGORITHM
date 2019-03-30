@@ -1,8 +1,9 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdlib.h>
-/*int VERTEX_COUNT = 0;
-int *VISITED;*/
+int VERTEX_COUNT = 0;
+int *VISITED;
+void printAdjacencyMatrix(int *adjMatPtr, int vertexCount);
 void DFS(int *adjMatPtr, int vertexCount, int *visitedArrPtr, int stratingVertex)
 {
     int j;
@@ -16,7 +17,7 @@ void DFS(int *adjMatPtr, int vertexCount, int *visitedArrPtr, int stratingVertex
         }
     }
 }
-/*int *readAdjMatFromFile(char *fileName)
+int *getAdjMatFromFile(char *fileName)
 {
     FILE *file = fopen(fileName, "r");
     char *code;
@@ -28,7 +29,7 @@ void DFS(int *adjMatPtr, int vertexCount, int *visitedArrPtr, int stratingVertex
     long f_size = ftell(file);
     fseek(file, 0, SEEK_SET);
     code = malloc(f_size);
-    int *ADJ;
+    static int *ADJ;
     c = fgetc(file);
     do
     {
@@ -45,7 +46,7 @@ void DFS(int *adjMatPtr, int vertexCount, int *visitedArrPtr, int stratingVertex
     } while ((c = fgetc(file)) != EOF);
 
     code[n] = '\0';
-    printf("Len:%d\n", n);
+    int inner = 0;
     int i = 0;
     while (code[i] != '\0')
     {
@@ -59,29 +60,25 @@ void DFS(int *adjMatPtr, int vertexCount, int *visitedArrPtr, int stratingVertex
             }
             c[j] = '\0';
             VERTEX_COUNT = atoi(c);
-            printf("Ver:%d\n", VERTEX_COUNT);
-            ADJ = malloc(sizeof(int) * VERTEX_COUNT * VERTEX_COUNT);
+            inner = VERTEX_COUNT;
+            ADJ = (int *)malloc(sizeof(int) * VERTEX_COUNT * VERTEX_COUNT);
             memset(ADJ, 0, sizeof(int) * VERTEX_COUNT * VERTEX_COUNT);
         }
-
-        for (int k = 0; k < VERTEX_COUNT; k++)
+        else
         {
             int j = 0;
+            int k = VERTEX_COUNT - inner;
             while (code[i] != '*')
             {
                 if (code[i] == '1')
                 {
-                    printf("C %c ",code[i]);
                     *(ADJ + k * VERTEX_COUNT + j) = 1;
-                    printf("A %d ",*(ADJ + k * VERTEX_COUNT + j));
                     j++;
                     i++;
                 }
                 else if (code[i] == '0')
                 {
-                    printf("C %c ",code[i]);
                     *(ADJ + k * VERTEX_COUNT + j) = 0;
-                    printf("A %d ",*(ADJ + k * VERTEX_COUNT + j));
                     j++;
                     i++;
                 }
@@ -91,13 +88,17 @@ void DFS(int *adjMatPtr, int vertexCount, int *visitedArrPtr, int stratingVertex
                     continue;
                 }
             }
+            //}
+            if (i > 1)
+                inner--;
+            i++;
         }
-        i++;
     }
     return ADJ;
-}*/
+}
 void printAdjacencyMatrix(int *adjMatPtr, int vertexCount)
 {
+    printf("Adjacency Matrix\n");
     for (short i = 0; i < vertexCount; i++)
     {
         for (short j = 0; j < vertexCount; j++)
@@ -114,46 +115,25 @@ void main(void)
     int ei;
     int flag = 1;
     char fileName[40];
-    /*
+
     int *adjMat;
-    printf("Enter Adjacency Matrix Name : ");
+    printf("Enter Adjacency Matrix FileName : ");
     scanf("%s", fileName);
-    adjMat = readAdjMatFromFile(fileName);
-    printAdjacencyMatrix(adjMat, VERTEX_COUNT);*/
-    printf("\nEnter Number of Vertex : ");
-    scanf("%d", &vc);
-    int VISITED[vc];
-    memset(VISITED, 0, sizeof(int) * vc);
-    int ADJ[vc][vc];
-    memset(ADJ, 0, sizeof(int) * vc * vc);
-    printf("\nEnter Edge Infos for the Adjacency Matrix of the Graph\n");
-    for (short i = 0; i < vc; i++)
+    adjMat = getAdjMatFromFile(fileName);
+    if (adjMat != NULL)
     {
-        for (short j = 0; j < vc; j++)
-        {
-            printf("Edge between %d %d (enter 1 if edge exists else enter 0)", i, j);
-            scanf("%d", &ei);
-            if (ei == 1)
-            {
-                ADJ[i][j] = ei;
-            }
-            else if (ei == 0)
-            {
-            }
-            else
-            {
-                printf("\nInvalid Info");
-                flag = 0;
-                break;
-            }
-        }
-        if (!flag)
-            break;
+        printf("Number of Vertices : %d\n", VERTEX_COUNT);
+        printAdjacencyMatrix(adjMat, VERTEX_COUNT);
+        int VISITED[VERTEX_COUNT];
+        memset(VISITED, 0, sizeof(int) * VERTEX_COUNT);
+        int stratingVertex = 0;
+        printf("\nEnter Starting Vertex (Between 0 to %d):", VERTEX_COUNT - 1);
+        scanf("%d", &stratingVertex);
+        printf("\nDFS path of Graph from %d\n", stratingVertex);
+        DFS(adjMat, VERTEX_COUNT, VISITED, stratingVertex);
     }
-    printAdjacencyMatrix(&ADJ[0][0], vc);
-    int stratingVertex = 0;
-    printf("\nEnter Starting Vertex (Between 0 to %d):", vc - 1);
-    scanf("%d", &stratingVertex);
-    printf("\nDFS path of Graph from %d\n", stratingVertex);
-    DFS(&ADJ[0][0], vc, VISITED, stratingVertex);
+    else
+    {
+        printf("File Error\n");
+    }
 }
